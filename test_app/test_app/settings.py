@@ -66,7 +66,7 @@ LANGUAGE_CODE = 'en-us'
 
 MEDIA_URL   = '/media/'
 STATIC_URL  = '/static/'
-MEDIA_ROOT  = os.path.abspath(os.path.join(BASE_DIR, "media" ))
-STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, "static"))
+MEDIA_ROOT  = os.path.abspath(os.path.join(BASE_DIR, "../media" ))
+STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, "../static"))
 
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']

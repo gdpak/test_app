@@ -1,9 +1,9 @@
 Django==1.8.2
+django-admin-bootstrapped==2.5.0
 django-filer==0.9.11
 django-localflavor==1.1
 django-mptt==0.7.4
 django-polymorphic==0.7.1
-django-suit==0.2.13
 easy-thumbnails==2.2
 flake8==2.4.1
 gunicorn==19.3.0

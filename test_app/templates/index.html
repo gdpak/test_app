@@ -1,0 +1,23 @@
+{% extend 'base.html' %}
+
+{% block main %}
+<div>
+	{% if user and not user.is_anonymous %}
+	Hello {{ user.get_full_name|default:user.username }}!
+	{% else %}
+	<form action="/url/to/submit/" method="post" class="form">
+		{% csrf_token %}
+		{% bootstrap_form form %}
+		{% bootstrap_label Login    %}
+		{% bootstrap_field login    %}
+		{% bootstrap_label Password %}
+		{% bootstrap_field password %}
+		{% buttons %}
+		<button type="submit" class="btn btn-primary">
+			{% bootstrap_icon "star" %} {% trans SignUp %}
+		</button>
+		{% endbuttons %}
+	</form>
+	{% endif %}
+</div>
+{% endblock %}

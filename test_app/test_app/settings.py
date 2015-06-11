@@ -75,8 +75,8 @@ USE_L10N      = True
 TIME_ZONE     = 'UTC'
 LANGUAGE_CODE = 'en-us'
 
-MEDIA_URL   = '/media/'
-STATIC_URL  = '/static/'
+MEDIA_URL  = '/media/'
+STATIC_URL = '/static/'
 
 MEDIA_ROOT    = getpath('../media')
 STATIC_ROOT   = getpath('../static')

@@ -4,19 +4,20 @@ from os.path                  import dirname
 from django.utils.translation import ugettext_lazy as _
 
 
-DEBUG            = True
-BASE_DIR         = dirname(dirname(abspath(__file__)))
-SECRET_KEY       = '7y)xhk23$%lv@5sukzt*rdvm&py+!j3y*7(ex%u7+^h8f*7==*'
-ROOT_URLCONF     = 'test_app.urls'
-ALLOWED_HOSTS    = []
-WSGI_APPLICATION = 'test_app.wsgi.application'
+DEBUG                 = True
+BASE_DIR              = dirname(dirname(abspath(__file__)))
+SECRET_KEY            = '7y)xhk23$%lv@5sukzt*rdvm&py+!j3y*7(ex%u7+^h8f*7==*'
+ROOT_URLCONF          = 'test_app.urls'
+ALLOWED_HOSTS         = []
+WSGI_APPLICATION      = 'test_app.wsgi.application'
+CSRF_COOKIE_SECURE    = True
+SESSION_COOKIE_SECURE = True
+
 
 def getpath(resource_path):
     return abspath(join(BASE_DIR, resource_path))
 
 INSTALLED_APPS = (
-    'suit',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -33,9 +33,7 @@ exec gunicorn ${DJANGO_WSGI_MODULE}:application \
   --name           $NAME          \
   --user           $USER          \
   --group          $GROUP         \
-  --keyfile        $TLS_KEY       \
   --workers        $NUM_WORKERS   \
-  --certfile       $TLS_CRT       \
   --log-file       $ERRORLOG      \
   --log-level      $LOG_LEVEL     \
   --access-logfile $ACCESSLOG     \

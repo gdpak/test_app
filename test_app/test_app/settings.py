@@ -4,13 +4,12 @@ from os.path                  import dirname
 from django.utils.translation import ugettext_lazy as _
 
 
-DEBUG                   = True
-BASE_DIR                = dirname(dirname(abspath(__file__)))
-SECRET_KEY              = '7y)xhk23$%lv@5sukzt*rdvm&py+!j3y*7(ex%u7+^h8f*7==*'
-ROOT_URLCONF            = 'test_app.urls'
-ALLOWED_HOSTS           = []
-WSGI_APPLICATION        = 'test_app.wsgi.application'
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
+DEBUG            = True
+BASE_DIR         = dirname(dirname(abspath(__file__)))
+SECRET_KEY       = '7y)xhk23$%lv@5sukzt*rdvm&py+!j3y*7(ex%u7+^h8f*7==*'
+ROOT_URLCONF     = 'test_app.urls'
+ALLOWED_HOSTS    = []
+WSGI_APPLICATION = 'test_app.wsgi.application'
 
 def getpath(resource_path):
     return abspath(join(BASE_DIR, resource_path))

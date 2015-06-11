@@ -46,7 +46,7 @@ MIDDLEWARE_CLASSES = (
 
 TEMPLATES = [{
     'BACKEND' : 'django.template.backends.django.DjangoTemplates',
-    'DIRS'    : [],
+    'DIRS'    : [getpath('templates'),],
     'APP_DIRS': True,
     'OPTIONS' : {
         'context_processors': [
@@ -78,10 +78,9 @@ LANGUAGE_CODE = 'en-us'
 MEDIA_URL  = '/media/'
 STATIC_URL = '/static/'
 
-MEDIA_ROOT    = getpath('../media')
-STATIC_ROOT   = getpath('../static')
-LOCALE_PATHS  = (getpath('locale'),)
-TEMPLATE_DIRS = (getpath('templates'),)
+MEDIA_ROOT   = getpath('../media')
+STATIC_ROOT  = getpath('../static')
+LOCALE_PATHS = (getpath('locale'),)
 
 LOGGING = {
     'version': 1,

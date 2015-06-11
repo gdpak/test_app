@@ -7,7 +7,7 @@ DEBUG            = True
 BASE_DIR         = dirname(dirname(abspath(__file__)))
 SECRET_KEY       = '7y)xhk23$%lv@5sukzt*rdvm&py+!j3y*7(ex%u7+^h8f*7==*'
 ROOT_URLCONF     = 'test_app.urls'
-ALLOWED_HOSTS    = []
+ALLOWED_HOSTS    = ['example.com', '.example.com.']
 WSGI_APPLICATION = 'test_app.wsgi.application'
 
 
@@ -62,11 +62,6 @@ DATABASES = {
         'PASSWORD': '',
 }}
 
-AUTHENTICATION_BACKENDS = (
-    'social.backends.google.GoogleOAuth',
-    'social.backends.google.GoogleOAuth2',
-)
-
 USE_TZ        = True
 USE_I18N      = True
 USE_L10N      = True
@@ -80,8 +75,6 @@ MEDIA_ROOT    = getpath('../media')
 STATIC_ROOT   = getpath('../static')
 LOCALE_PATHS  = (getpath('locale'),)
 TEMPLATE_DIRS = (getpath('templates'),)
-
-SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
 LOGGING = {
     'version': 1,

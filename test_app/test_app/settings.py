@@ -106,13 +106,12 @@ LOGGING = {
     }},
     'handlers': {
         'console'      : {'level': 'ERROR', 'class': 'logging.StreamHandler'             , 'formatter': 'semi_verbose'},
-        'file_log'     : {'level': 'DEBUG', 'class': 'logging.FileHandler'               , 'formatter': 'semi_verbose', 'filename': getpath('../logs/errors.log')},
         'mail_admins'  : {'level': 'ERROR', 'class': 'django.utils.log.AdminEmailHandler', 'formatter': 'semi_verbose', 'filters' : ['require_debug_false']},
     },
     'loggers': {
-        'django'        : {'level': 'DEBUG', 'handlers' : ['console', 'file_log', 'mail_admins'], 'propagate': False},
-        'sentry.errors' : {'level': 'DEBUG', 'handlers' : ['console'                           ], 'propagate': False},
-        'django.request': {'level': 'ERROR', 'handlers' : ['mail_admins'                       ], 'propagate': False},
+        'django'        : {'level': 'DEBUG', 'handlers' : ['console', 'mail_admins'], 'propagate': False},
+        'sentry.errors' : {'level': 'DEBUG', 'handlers' : ['console'               ], 'propagate': False},
+        'django.request': {'level': 'ERROR', 'handlers' : ['mail_admins'           ], 'propagate': False},
 }}
 
 SUIT_CONFIG = {

@@ -112,9 +112,6 @@ LOGGING = {
         'django.request': {'level': 'ERROR', 'handlers' : ['mail_admins'           ], 'propagate': False},
 }}
 
-
-DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
-
 MESSAGE_TAGS = {
             messages.ERROR  : 'alert-danger error'   ,
             messages.SUCCESS: 'alert-success success',

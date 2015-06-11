@@ -3,14 +3,12 @@ from os.path import abspath
 from os.path import dirname
 
 
-DEBUG                 = True
-BASE_DIR              = dirname(dirname(abspath(__file__)))
-SECRET_KEY            = '7y)xhk23$%lv@5sukzt*rdvm&py+!j3y*7(ex%u7+^h8f*7==*'
-ROOT_URLCONF          = 'test_app.urls'
-ALLOWED_HOSTS         = []
-WSGI_APPLICATION      = 'test_app.wsgi.application'
-CSRF_COOKIE_SECURE    = True
-SESSION_COOKIE_SECURE = True
+DEBUG            = True
+BASE_DIR         = dirname(dirname(abspath(__file__)))
+SECRET_KEY       = '7y)xhk23$%lv@5sukzt*rdvm&py+!j3y*7(ex%u7+^h8f*7==*'
+ROOT_URLCONF     = 'test_app.urls'
+ALLOWED_HOSTS    = []
+WSGI_APPLICATION = 'test_app.wsgi.application'
 
 
 def getpath(resource_path):

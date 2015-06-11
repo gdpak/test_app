@@ -28,6 +28,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'localflavor',
     'easy_thumbnails',
+    'social.apps.django_app.default',
 
     'user_management',
 )
@@ -53,6 +54,9 @@ TEMPLATES = [{
             'django.template.context_processors.debug',
             'django.contrib.auth.context_processors.auth',
             'django.contrib.messages.context_processors.messages',
+
+            'social.apps.django_app.context_processors.backends',
+            'social.apps.django_app.context_processors.login_redirect',
 ]}}]
 
 DATABASES = {
@@ -121,3 +125,10 @@ SUIT_CONFIG = {
         {'label': _('Documentation'), 'icon': 'icon-question-sign', 'url': '/static/documentation/index.html'}
     ),
 }
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']

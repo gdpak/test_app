@@ -1,7 +1,6 @@
-from os.path        import join
-from os.path        import abspath
-from os.path        import dirname
-from django.contrib import messages
+from os.path import join
+from os.path import abspath
+from os.path import dirname
 
 
 DEBUG                 = True
@@ -18,8 +17,6 @@ def getpath(resource_path):
     return abspath(join(BASE_DIR, resource_path))
 
 INSTALLED_APPS = (
-    'django_admin_bootstrapped',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -111,9 +108,3 @@ LOGGING = {
         'django'        : {'level': 'DEBUG', 'handlers' : ['console', 'mail_admins'], 'propagate': False},
         'django.request': {'level': 'ERROR', 'handlers' : ['mail_admins'           ], 'propagate': False},
 }}
-
-MESSAGE_TAGS = {
-            messages.ERROR  : 'alert-danger error'   ,
-            messages.SUCCESS: 'alert-success success',
-            messages.WARNING: 'alert-warning warning',
-}

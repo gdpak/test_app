@@ -1,11 +1,19 @@
-import os
+from os.path                  import join
+from os.path                  import abspath
+from os.path                  import dirname
+from django.utils.translation import ugettext_lazy as _
 
-DEBUG            = True
-BASE_DIR         = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY       = '7y)xhk23$%lv@5sukzt*rdvm&py+!j3y*7(ex%u7+^h8f*7==*'
-ROOT_URLCONF     = 'test_app.urls'
-ALLOWED_HOSTS    = []
-WSGI_APPLICATION = 'test_app.wsgi.application'
+
+DEBUG                   = True
+BASE_DIR                = dirname(dirname(abspath(__file__)))
+SECRET_KEY              = '7y)xhk23$%lv@5sukzt*rdvm&py+!j3y*7(ex%u7+^h8f*7==*'
+ROOT_URLCONF            = 'test_app.urls'
+ALLOWED_HOSTS           = []
+WSGI_APPLICATION        = 'test_app.wsgi.application'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
+
+def getpath(resource_path):
+    return abspath(join(BASE_DIR, resource_path))
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -16,9 +24,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'suit',
+    'gunicorn',
     'localflavor',
-    'user_management',
+    'easy_thumbnails',
     'social.apps.django_app.default',
+
+    'user_management',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -49,7 +60,7 @@ TEMPLATES = [{
 
 DATABASES = {
     'default': {
-        'NAME'  : os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME'  : getpath('db.sqlite3'),
         'ENGINE': 'django.db.backends.sqlite3',
 }}
 
@@ -66,7 +77,59 @@ LANGUAGE_CODE = 'en-us'
 
 MEDIA_URL   = '/media/'
 STATIC_URL  = '/static/'
-MEDIA_ROOT  = os.path.abspath(os.path.join(BASE_DIR, "../media" ))
-STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, "../static"))
+
+MEDIA_ROOT    = getpath('../media')
+STATIC_ROOT   = getpath('../static')
+LOCALE_PATHS  = (getpath('locale'),)
+TEMPLATE_DIRS = (getpath('templates'),)
 
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'root': {
+        'level': 'DEBUG',
+        'handlers': ['console',],
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+    }},
+    'formatters': {
+        'semi_verbose': {
+            'format': '[%(filename)s] [%(process)d]%(module)s %(funcName)s() : %(lineno)d: %(message)s'
+    }},
+    'handlers': {
+        'console'      : {'level': 'ERROR', 'class': 'logging.StreamHandler'             , 'formatter': 'semi_verbose'},
+        'file_log'     : {'level': 'DEBUG', 'class': 'logging.FileHandler'               , 'formatter': 'semi_verbose', 'filename': getpath('../logs/errors.log')},
+        'mail_admins'  : {'level': 'ERROR', 'class': 'django.utils.log.AdminEmailHandler', 'formatter': 'semi_verbose', 'filters' : ['require_debug_false']},
+    },
+    'loggers': {
+        'django'        : {'level': 'DEBUG', 'handlers' : ['console', 'file_log', 'mail_admins'], 'propagate': False},
+        'sentry.errors' : {'level': 'DEBUG', 'handlers' : ['console'                           ], 'propagate': False},
+        'django.request': {'level': 'ERROR', 'handlers' : ['mail_admins'                       ], 'propagate': False},
+}}
+
+SUIT_CONFIG = {
+    'VERSION'                : "0.1",
+    'ADMIN_NAME'             : _('Test App'),
+    'SEARCH_URL'             : '/admin/user_management/user_information',
+    'LIST_PER_PAGE'          : 30,
+    'HEADER_DATE_FORMAT'     : 'l, j. F Y',
+    'HEADER_TIME_FORMAT'     : 'H:i',
+    'MENU_OPEN_FIRST_CHILD'  : True,
+    'SHOW_REQUIRED_ASTERISK' : True,
+    'CONFIRM_UNSAVED_CHANGES': True,
+    'MENU': (
+        '-',
+        {'label': _('Operations'), 'icon': 'icon-briefcase' , 'models': ('artemis.partner', 'artemis.activity', 'artemis.activityobserveridentity'                    )},
+        {'label': _('Forms'     ), 'icon': 'icon-tasks'     , 'models': ('artemis.form', 'artemis.formtype', 'artemis.formgroup', 'artemis.formfield'                 )},
+        {'label': _('Results'   ), 'icon': 'icon-inbox'     , 'models': ('artemis.formfieldresult', 'artemis.formgroupresult', 'artemis.formresult'                   )},
+        {'label': _('Observers' ), 'icon': 'icon-eye-open'  , 'models': ('artemis.observer', 'artemis.observerrole'                                                   )},
+        {'label': _('Locations' ), 'icon': 'icon-map-marker', 'models': ('artemis.location', 'artemis.locationtype', 'artemis.pollingstation', 'artemis.pollingcenter')},
+        {'label': _('Contacts'  ), 'icon': 'icon-bullhorn'  , 'models': ('artemis.phone', 'artemis.email' , 'artemis.address'                                         )},
+        '-',
+        {'label': _('Documentation'), 'icon': 'icon-question-sign', 'url': '/static/documentation/index.html'}
+    ),
+}

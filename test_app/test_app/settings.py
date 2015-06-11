@@ -110,6 +110,10 @@ LOGGING = {
     },
     'loggers': {
         'django'        : {'level': 'DEBUG', 'handlers' : ['console', 'mail_admins'], 'propagate': False},
+<<<<<<< HEAD
+=======
+        'sentry.errors' : {'level': 'DEBUG', 'handlers' : ['console'               ], 'propagate': False},
+>>>>>>> 895a21cc449f157d57b5faa2268a3f20b3e2378a
         'django.request': {'level': 'ERROR', 'handlers' : ['mail_admins'           ], 'propagate': False},
 }}
 

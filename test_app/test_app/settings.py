@@ -115,8 +115,8 @@ SUIT_CONFIG = {
     'CONFIRM_UNSAVED_CHANGES': True,
     'MENU': (
         '-',
-        {'label': _('Operations'), 'icon': 'icon-briefcase', 'models': ('auth.user', 'auth.group'        ,)},
-        {'label': _('Forms'     ), 'icon': 'icon-tasks'    , 'models': ('user_management.userinformation',)},
+        {'label': _('Authentication'), 'icon': 'icon-briefcase', 'models': ('auth.user', 'auth.group'        ,)},
+        {'label': _('Management'    ), 'icon': 'icon-tasks'    , 'models': ('user_management.userinformation',)},
         '-',
         {'label': _('Documentation'), 'icon': 'icon-question-sign', 'url': '/static/documentation/index.html'}
     ),

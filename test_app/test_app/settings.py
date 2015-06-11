@@ -1,6 +1,7 @@
-from os.path import join
-from os.path import abspath
-from os.path import dirname
+from os.path                  import join
+from os.path                  import abspath
+from os.path                  import dirname
+from django.utils.translation import ugettext_lazy as _
 
 
 DEBUG            = True
@@ -101,3 +102,22 @@ LOGGING = {
         'django'        : {'level': 'DEBUG', 'handlers' : ['console', 'mail_admins'], 'propagate': False},
         'django.request': {'level': 'ERROR', 'handlers' : ['mail_admins'           ], 'propagate': False},
 }}
+
+SUIT_CONFIG = {
+    'VERSION'                : "0.1",
+    'ADMIN_NAME'             : _('Test Application'),
+    'SEARCH_URL'             : '/admin/user_management/userinformation/',
+    'LIST_PER_PAGE'          : 30,
+    'HEADER_DATE_FORMAT'     : 'l, j. F Y',
+    'HEADER_TIME_FORMAT'     : 'H:i',
+    'MENU_OPEN_FIRST_CHILD'  : True,
+    'SHOW_REQUIRED_ASTERISK' : True,
+    'CONFIRM_UNSAVED_CHANGES': True,
+    'MENU': (
+        '-',
+        {'label': _('Operations'), 'icon': 'icon-briefcase', 'models': ('auth.user', 'auth.group'        ,)},
+        {'label': _('Forms'     ), 'icon': 'icon-tasks'    , 'models': ('user_management.userinformation',)},
+        '-',
+        {'label': _('Documentation'), 'icon': 'icon-question-sign', 'url': '/static/documentation/index.html'}
+    ),
+}

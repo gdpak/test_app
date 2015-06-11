@@ -1,5 +1,6 @@
 Django==1.8.2
 django-admin-bootstrapped==2.5.0
+django-bootstrap3==5.4.0
 django-filer==0.9.11
 django-localflavor==1.1
 django-mptt==0.7.4

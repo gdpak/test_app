@@ -11,7 +11,7 @@ def index(request):
 
 def logout(request):
    auth_logout(request)
-   redirect('/login')
+   return redirect('/login')
 
 
 def login(request):

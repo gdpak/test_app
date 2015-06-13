@@ -15,7 +15,7 @@ DEBUG            = True
 BASE_DIR         = dirname(dirname(abspath(__file__)))
 SECRET_KEY       = '7y)xhk23$%lv@5sukzt*rdvm&py+!j3y*7(ex%u7+^h8f*7==*'
 ROOT_URLCONF     = 'test_app.urls'
-ALLOWED_HOSTS    = ['example.com', '.example.com.']
+ALLOWED_HOSTS    = [environ['XANADOU_SERVER_NAME']]
 WSGI_APPLICATION = 'test_app.wsgi.application'
 
 
@@ -140,29 +140,11 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_REDIRECT_URL = '/'
 
-SOCIAL_AUTH_STRATEGY                 = 'social.strategies.django_strategy.DjangoStrategy'
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
-
-SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
-    'https://www.googleapis.com/auth/userinfo.profile'
-]
-
-SOCIAL_AUTH_PIPELINE = (
-    'social.pipeline.social_auth.social_details',
-    'social.pipeline.social_auth.social_uid',
-    'social.pipeline.social_auth.auth_allowed',
-    'social.pipeline.social_auth.social_user',
-    'social.pipeline.user.get_username',
-    'social.pipeline.mail.mail_validation',
-    'social.pipeline.user.create_user',
-    'social.pipeline.social_auth.associate_user',
-    'social.pipeline.debug.debug',
-    'social.pipeline.social_auth.load_extra_data',
-    'social.pipeline.user.user_details',
-    'social.pipeline.debug.debug')
 
 try:
     extra_configuration              = loads(b64decode(environ['XANADOU_EXTRA_INFO']))
+    GOOGLE_WHITE_LISTED_DOMAINS      = [environ['XANADOU_SERVER_NAME']]
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY    = extra_configuration['google_oauth2_key'   ]
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = extra_configuration['google_oauth2_secret']
 except:

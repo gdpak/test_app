@@ -1,9 +1,13 @@
+from __future__ import print_function
+
 from os                       import environ
+from sys                      import stderr
 from json                     import loads
 from base64                   import b64decode
 from os.path                  import join
 from os.path                  import abspath
 from os.path                  import dirname
+from traceback                import format_exc
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -162,4 +166,4 @@ try:
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY    = extra_configuration['google_oauth2_key'   ]
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = extra_configuration['google_oauth2_secret']
 except:
-    pass
+    print('Dynamic configuration failed with error {}'.format(format_exc()), file=stderr)

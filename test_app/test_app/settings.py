@@ -33,7 +33,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'gunicorn',
-    'bootstrap3',
     'localflavor',
     'easy_thumbnails',
     'social.apps.django_app.default',
@@ -138,7 +137,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/login'
 
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 

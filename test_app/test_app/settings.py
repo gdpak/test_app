@@ -26,6 +26,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'gunicorn',
+    'bootstrap3',
     'localflavor',
     'easy_thumbnails',
     'social.apps.django_app.default',
@@ -130,4 +131,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY        = 'AIzaSyDhZIE6SfjYfKoC-UzF4_wv3ITFXHf6oPk'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET     = 'c41TIfQmlBRZgheyCtrfKMDO'
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']

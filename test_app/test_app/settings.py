@@ -158,7 +158,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.debug.debug')
 
 try:
-    extra_configuration              = loads(b64decode(environ['XNANADOU_EXTRA_INFO']))
+    extra_configuration              = loads(b64decode(environ['XANADOU_EXTRA_INFO']))
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY    = extra_configuration['google_oauth2_key'   ]
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = extra_configuration['google_oauth2_secret']
 except:

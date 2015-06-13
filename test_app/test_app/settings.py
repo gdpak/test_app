@@ -85,9 +85,12 @@ LANGUAGE_CODE = 'en-us'
 MEDIA_URL  = '/media/'
 STATIC_URL = '/static/'
 
-MEDIA_ROOT   = getpath('../media')
-STATIC_ROOT  = getpath('../static')
-LOCALE_PATHS = (getpath('locale'),)
+MEDIA_ROOT       = getpath('../media' )
+STATIC_ROOT      = getpath('../static')
+LOCALE_PATHS     = (getpath('locale'),)
+STATICFILES_DIRS = (getpath('assets'),)
+
+
 
 LOGGING = {
     'version': 1,

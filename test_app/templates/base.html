@@ -1,16 +1,26 @@
-{% load bootstrap3 %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
- <head>
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>{% block title %}Test Application{% endblock %}</title>
-   {% bootstrap_css %}
-   {% bootstrap_javascript %}
- </head>
- <body>
-   {% block main %}{% endblock %}
- </body>
+	head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		{% block title %}{% endblock %}
+	</title>
+	<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+	{% block css     %}{% endblock %}
+	{% block js_head %}{% endblcok %}
+</head>
+<body>
+	<div id="messages">
+		{% block messages %}{% endblock %}
+	</div>
+
+	{% block main %     }{% endblock %}
+	<script src="{% static "/jquery.min.js"      %}"></script>
+	<script src="{% static "js/bootstrap.min.js" %}"></script>
+	{% block js_footer %}{% endblock %}
+</body>
 </html>

@@ -1,3 +1,6 @@
+from os                       import environ
+from json                     import loads
+from base64                   import b64decode
 from os.path                  import join
 from os.path                  import abspath
 from os.path                  import dirname
@@ -132,6 +135,31 @@ AUTHENTICATION_BACKENDS = (
 )
 
 LOGIN_REDIRECT_URL = '/'
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY        = 'AIzaSyDhZIE6SfjYfKoC-UzF4_wv3ITFXHf6oPk'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET     = 'c41TIfQmlBRZgheyCtrfKMDO'
+
+SOCIAL_AUTH_STRATEGY                 = 'social.strategies.django_strategy.DjangoStrategy'
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
+
+SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.profile'
+]
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.mail.mail_validation',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.debug.debug',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'social.pipeline.debug.debug')
+
+try:
+    extra_configuration              = loads(b64decode(environ['XNANADOU_EXTRA_INFO']))
+    SOCIAL_AUTH_GOOGLE_OAUTH2_KEY    = extra_configuration['google_oauth2_key'   ]
+    SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = extra_configuration['google_oauth2_secret']
+except:
+    pass

@@ -13,12 +13,10 @@
 			<div class="modal-body">
 				<form class="form col-md-12 center-block" action="{% url 'login' %}" method="POST">
 					<div class="form-group">
-						<div class="highlight">
-							<h2>{% trans  "You have successfully logged out" %}</h2>
-							<br/>
-							<br/>
-							{% trans "Please don't go. The drones need you. They look up to you." %}
-						</div>
+						<h2>{% trans  "You have successfully logged out" %}</h2>
+					</div>
+					<div class="form-group">
+						{% trans "Please don't go. The drones need you. They look up to you." %}
 					</div>
 					<div class="form-group">
 						<a class="btn btn-primary btn-lg btn-block" role="button" href="#" onclick="close_window();return false;">

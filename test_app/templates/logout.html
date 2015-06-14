@@ -11,22 +11,20 @@
 				<h1 class="text-center">{% trans "Logout" %}</h1>
 			</div>
 			<div class="modal-body">
-				<form class="form col-md-12 center-block" action="{% url 'login' %}" method="POST">
-					<div class="form-group">
-						<h2>{% trans  "You have successfully logged out" %}</h2>
-					</div>
-					<div class="form-group">
-						{% trans "Please don't go. The drones need you. They look up to you." %}
-					</div>
-					<div class="form-group">
-						<a class="btn btn-primary btn-lg btn-block" role="button" href="#" onclick="close_window();return false;">
-							{% trans "Close page" %}
-						</a>
-						<a class="btn btn-info btn-lg btn-block" role="button"  href="/">
-							{% trans "One more turn" %}
-						</a>
-					</div>
-				</form>
+				<div class="form-group">
+					<h2>{% trans  "You have successfully logged out" %}</h2>
+				</div>
+				<div class="form-group">
+					{% trans "Please don't go. The drones need you. They look up to you." %}
+				</div>
+				<div class="form-group">
+					<a class="btn btn-primary btn-lg btn-block" role="button" href="#" onclick="close_window();return false;">
+						{% trans "Close page" %}
+					</a>
+					<a class="btn btn-info btn-lg btn-block" role="button"  href="/">
+						{% trans "One more turn" %}
+					</a>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<div class="col-md-12"></div>

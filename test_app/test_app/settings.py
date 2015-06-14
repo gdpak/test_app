@@ -11,7 +11,9 @@ from traceback                import format_exc
 from django.utils.translation import ugettext_lazy as _
 
 
-DEBUG            = True
+DEBUG          = True
+TEMPLATE_DEBUG = True
+
 BASE_DIR         = dirname(dirname(abspath(__file__)))
 SECRET_KEY       = '7y)xhk23$%lv@5sukzt*rdvm&py+!j3y*7(ex%u7+^h8f*7==*'
 ROOT_URLCONF     = 'test_app.urls'
@@ -34,6 +36,7 @@ INSTALLED_APPS = (
 
     'gunicorn',
     'localflavor',
+    'debug_toolbar',
     'easy_thumbnails',
     'social.apps.django_app.default',
 
@@ -41,6 +44,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -140,8 +144,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-LOGIN_REDIRECT_URL = '/'
-
+LOGIN_REDIRECT_URL                   = '/'
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
 try:
@@ -151,3 +154,30 @@ try:
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = extra_configuration['google_oauth2_secret']
 except:
     print('Dynamic configuration failed with error {}'.format(format_exc()), file=stderr)
+
+
+DEBUG_TOOLBAR_PANELS = [
+    'debug_toolbar.panels.versions.VersionsPanel',
+    'debug_toolbar.panels.timer.TimerPanel',
+    'debug_toolbar.panels.settings.SettingsPanel',
+    'debug_toolbar.panels.headers.HeadersPanel',
+    'debug_toolbar.panels.request.RequestPanel',
+    'debug_toolbar.panels.sql.SQLPanel',
+    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+    'debug_toolbar.panels.templates.TemplatesPanel',
+    'debug_toolbar.panels.cache.CachePanel',
+    'debug_toolbar.panels.signals.SignalsPanel',
+    'debug_toolbar.panels.logging.LoggingPanel',
+    'debug_toolbar.panels.redirects.RedirectsPanel',
+]
+
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_COLLAPSED'       : True,
+    'RENDER_PANELS'        : True,
+    'ENABLE_STACKTRACES'   : True,
+    'SHOW_TEMPLATE_CONTEXT': True,
+    'SHOW_TOOLBAR_CALLBACK': lambda _: True,
+    'DISABLE_PANELS'       : set(['debug_toolbar.panels.redirects.RedirectsPanel']),
+}

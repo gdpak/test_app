@@ -4,6 +4,7 @@ from django.contrib.auth            import authenticate
 from django.contrib.auth            import login  as auth_login
 from django.contrib.auth            import logout as auth_logout
 from django.views.generic           import View
+from django.utils.decorators        import method_decorator
 from django.contrib.auth.decorators import login_required
 
 from user_management.forms import UserInformationForm
@@ -12,7 +13,7 @@ from user_management.forms import UserInformationForm
 class Index(View):
     template_name = 'index.html'
 
-    @login_required(login_url='/login')
+    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         return render(request, 'index.html')
 

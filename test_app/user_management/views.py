@@ -1,10 +1,18 @@
+from django.conf                    import settings
+from django.shortcuts               import resolve_url
 from django.shortcuts               import render
 from django.shortcuts               import redirect
-from django.contrib.auth            import logout as auth_logout
+from django.utils.http              import is_safe_url
+from django.contrib.auth            import login
+from django.contrib.auth            import logout
 from django.views.generic           import View
 from django.utils.decorators        import method_decorator
 from django.contrib.auth.forms      import AuthenticationForm
+from django.views.decorators.cache  import never_cache
+from django.views.decorators.csrf   import csrf_protect
+from django.views.decorators.debug  import sensitive_post_parameters
 from django.contrib.auth.decorators import login_required
+
 
 
 class Index(View):
@@ -19,7 +27,7 @@ class Logout(View):
     template_name = 'logout.html'
 
     def get(self, request, *args, **kwargs):
-        auth_logout(request)
+        logout(request)
         return render(request, self.template_name)
 
 
@@ -28,11 +36,18 @@ class Login(View):
     template_name = 'login.html'
 
     def get(self, request, *args, **kwargs):
-        form = self.form_class()
+        form = self.form_class(request)
         return render(request, self.template_name, {'form': form})
 
+    @method_decorator(never_cache)
+    @method_decorator(csrf_protect)
+    @method_decorator(sensitive_post_parameters)
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+        form        = self.form_class(request, data=request.POST)
+        redirect_to = '/'
+
         if form.is_valid():
+            if not is_safe_url(url=redirect_to, host=request.get_host()):
+                redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
+            login(request, form.get_user())
             return redirect('/')
-        return redirect('/login', {'form': form})

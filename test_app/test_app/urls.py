@@ -1,17 +1,19 @@
-from django.contrib   import admin
 from django.conf.urls import url
 from django.conf.urls import include
 
+from admin.site             import urls as admin_urls
+from social.apps.django_app import urls as social_urls
+
 from user_management.views import index
-from user_management.views import login
-from user_management.views import logout
-from user_management.views import account_login
+from user_management.views import Login
+from user_management.views import Logout
+
 
 urlpatterns = [
-    url(''            , include('social.apps.django_app.urls', namespace='social')),
-    url(r'^$'         , index ),
-    url(r'^admin/'    , include(admin.site.urls)),
-    url(r'^login/$'   , login ),
-    url(r'^logout/$'  , logout),
-    url(r'^auth_login', account_login, name='auth_login'),
+    url(''        , include(social_urls, namespace='social')),
+    url(r'^admin/', include(admin_urls)),
+
+    url(r'^$'       , index ),
+    url(r'^login/$' , Login.as_view(), name='login'),
+    url(r'^logout/$', Logout.as_view(), name='logout'),
 ]

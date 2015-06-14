@@ -32,7 +32,8 @@ class Login(View):
     template_name = 'login.html'
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        form = self.form_class(request)
+        return render(request, self.template_name, {'form': form})
 
     def post(self, request, *args, **kwargs):
         form        = self.form_class(request, data=request.POST)

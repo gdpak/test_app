@@ -12,10 +12,9 @@
 {% block messages %}
 {% if not form.is_valid %}
 <div class="alert alert-danger" role="alert">
+	{% for error in form.non_field_errors %}
 	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-	<span class="sr-only">Errors:</span>
-	{% for error in form.errors %}
-    <li>{{ error }}</li>
+	<span class="sr-only">{{ error }}</span>
     {% endfor %}
 </div>
 {% endif %}

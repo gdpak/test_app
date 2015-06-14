@@ -18,8 +18,9 @@
 	<div id="messages">
 		{% block messages %}{% endblock %}
 	</div>
-
-	{% block main %}{% endblock %}
+	<div id="container">
+		{% block main %}{% endblock %}
+	</div>
 	<script src="{% static "js/jquery.min.js"    %}"></script>
 	<script src="{% static "js/bootstrap.min.js" %}"></script>
 	{% block js_footer %}{% endblock %}

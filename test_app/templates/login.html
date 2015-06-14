@@ -13,8 +13,10 @@
 {% if not form.is_valid %}
 <div class="alert alert-danger" role="alert">
 	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-	<span class="sr-only">Error:</span>
-	{{ form.errors }}
+	<span class="sr-only">Errors:</span>
+	{% for error in form.errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
 </div>
 {% endif %}
 {% endblock %}

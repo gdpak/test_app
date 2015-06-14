@@ -13,7 +13,7 @@ from user_management.forms import UserInformationForm
 class Index(View):
     template_name = 'index.html'
 
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/login'))
     def get(self, request, *args, **kwargs):
         return render(request, 'index.html')
 
@@ -31,7 +31,7 @@ class Login(View):
     template_name = 'login.html'
 
     def get(self, request, *args, **kwargs):
-        form = self.form_class(initial=self.initial)
+        form = self.form_class()
         return render(request, self.template_name, {'form': form})
 
     def post(self, request, *args, **kwargs):

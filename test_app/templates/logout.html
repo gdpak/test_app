@@ -13,14 +13,11 @@
 			<div class="modal-body">
 				<form class="form col-md-12 center-block" action="{% url 'login' %}" method="POST">
 					<div class="form-group">
-						<input type="text" name="username" class="form-control input-lg" placeholder="Login">
-					</div>
-					<div class="form-group">
 						<div class="highlight">
-							<h1>{% trans  "You have successfully loged out" %}</h1>
+							<h2>{% trans  "You have successfully logged out" %}</h2>
 							<br/>
 							<br/>
-							{% trans "Please don't go. The drones need you. They look up to you."}
+							{% trans "Please don't go. The drones need you. They look up to you." %}
 						</div>
 					</div>
 					<div class="form-group">

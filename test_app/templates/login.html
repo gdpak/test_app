@@ -27,7 +27,7 @@
 				<h1 class="text-center">Login</h1>
 			</div>
 			<div class="modal-body">
-				<form class="form col-md-12 center-block" action="{% url 'auth_login' %}" method="POST">
+				<form class="form col-md-12 center-block" action="{% url 'login' %}" method="POST">
 					{% csrf_token %}
 					{% if user and not user.is_anonymous %}
 					<div class="form-group">

@@ -12,7 +12,7 @@ from user_management.forms import UserInformationForm
 class Index(View):
     template_name = 'index.html'
 
-    @login_required
+    @login_required(login_url='/login')
     def get(self, request, *args, **kwargs):
         return render(request, 'index.html')
 

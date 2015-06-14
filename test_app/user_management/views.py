@@ -48,3 +48,4 @@ class Login(View):
                 redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
             login(request, form.get_user())
             return redirect('/')
+        return redirect('/login', {'form': form})

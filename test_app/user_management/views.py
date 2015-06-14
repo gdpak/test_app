@@ -8,11 +8,7 @@ from django.contrib.auth            import logout
 from django.views.generic           import View
 from django.utils.decorators        import method_decorator
 from django.contrib.auth.forms      import AuthenticationForm
-from django.views.decorators.cache  import never_cache
-from django.views.decorators.csrf   import csrf_protect
-from django.views.decorators.debug  import sensitive_post_parameters
 from django.contrib.auth.decorators import login_required
-
 
 
 class Index(View):

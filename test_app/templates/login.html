@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block messages %}
-{% if form.errors %}
+{% if not form.is_valid %}
 <div class="alert alert-danger" role="alert">
 	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 	<span class="sr-only">Error:</span>

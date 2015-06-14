@@ -1,13 +1,10 @@
 from django.shortcuts               import render
 from django.shortcuts               import redirect
-from django.contrib.auth            import authenticate
-from django.contrib.auth            import login  as auth_login
 from django.contrib.auth            import logout as auth_logout
 from django.views.generic           import View
 from django.utils.decorators        import method_decorator
+from django.contrib.auth.forms      import AuthenticationForm
 from django.contrib.auth.decorators import login_required
-
-from user_management.forms import UserInformationForm
 
 
 class Index(View):
@@ -27,7 +24,7 @@ class Logout(View):
 
 
 class Login(View):
-    form_class    = UserInformationForm
+    form_class    = AuthenticationForm
     template_name = 'login.html'
 
     def get(self, request, *args, **kwargs):
@@ -37,11 +34,5 @@ class Login(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            user = authenticate(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password'])
-
-            if user is not None:
-                auth_login(request, user)
-                return redirect('/')
+            return redirect('/')
         return redirect('/login', {'form': form})

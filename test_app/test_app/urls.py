@@ -1,8 +1,8 @@
 from django.conf.urls import url
 from django.conf.urls import include
 
-from admin.site             import urls as admin_urls
-from social.apps.django_app import urls as social_urls
+from social.apps.django_app    import urls as social_urls
+from django.contrib.admin.site import urls as admin_urls
 
 from user_management.views import index
 from user_management.views import Login

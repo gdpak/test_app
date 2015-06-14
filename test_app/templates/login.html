@@ -24,7 +24,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h1 class="text-center">Login</h1>
+				<h1 class="text-center">{% trans "Login" %}</h1>
 			</div>
 			<div class="modal-body">
 				<form class="form col-md-12 center-block" action="{% url 'login' %}" method="POST">
@@ -47,7 +47,7 @@
 						<input type="password" name="password" class="form-control input-lg" placeholder="Password">
 					</div>
 					<div class="form-group">
-						<button class="btn btn-primary btn-lg btn-block">Sign In</button>
+						<button class="btn btn-primary btn-lg btn-block">{% trans "Sign In" %}</button>
 						<a class="btn btn-info btn-lg btn-block" role="button"
 							 href="{% url 'social:begin' 'google-oauth2' %}?next=/">
 							{% trans 'Login with Google' %}

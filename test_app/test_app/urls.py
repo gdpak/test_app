@@ -12,7 +12,7 @@ urlpatterns = [
     url(''        , include(social_urls, namespace='social')),
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^$'       , Index ),
-    url(r'^login/$' , Login.as_view(), name='login'),
+    url(r'^$'       , Index .as_view(), name='index' ),
+    url(r'^login/$' , Login .as_view(), name='login' ),
     url(r'^logout/$', Logout.as_view(), name='logout'),
 ]

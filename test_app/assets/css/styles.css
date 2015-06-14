@@ -1,1 +1,7 @@
-.modal-footer {   border-top: 0px; }
+#container:nth-child(1) {
+    position: relative; !important
+}
+
+.modal-footer {
+    border-top: 0px;
+}

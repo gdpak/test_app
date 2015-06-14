@@ -1,7 +1,6 @@
-from django.contrib   import admin
-from django.conf.urls import url
-from django.conf.urls import include
-
+from django.contrib         import admin
+from django.conf.urls       import url
+from django.conf.urls       import include
 from social.apps.django_app import urls as social_urls
 
 from user_management.views import index

@@ -1,0 +1,15 @@
+{% extends 'create_account.html' %}
+
+{% load i18n %}
+
+{% block title %}
+	{% trans "Update account" %}
+{% endblock %}
+
+{% block form_action %}
+	{% url 'update_account' form.instance.id %}
+{% endblock %}
+
+{% block form_button_label %}
+	{% trans 'Update' %}
+{% endblock %}

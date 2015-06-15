@@ -1,13 +1,74 @@
 {% extends 'base.html' %}
-{% load i18n %}
+
+{% load i18n        %}
+{% load staticfiles %}
 
 {% block title %}{% trans "Welcome" %}{% endblock %}
 
+{% block css %}
+<link href="{% static "css/styles.css" %}" rel="stylesheet">
+{% endblock %}
+
 {% block main %}
-<div>
-	Hello {{ user.get_full_name|default:user.username }}!
-	<a href="/logout">
-		{% trans 'Logout' %}
-	</a>
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="{% url 'index' %}">{% trans APPLICATION_NAME %}</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				{% url 'list_accounts'  as list_url   %}
+				{% url 'create_account' as create_url %}
+
+				<li {% if request.get_full_path = list_url %} class="active"{% endif %}>
+					<a href="{{ list_url }}">{% trans 'List accounts' %}</a>
+				</li>
+				<li {% if request.get_full_path = create_url %} class="active"{% endif %}>
+					<a href="{{ create_url }}">{% trans 'Create account' %}</a>
+				</li>
+			</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="jumbotron">
+	{% block action %}
+	<div class="row">
+		<div class="col-md-2">
+			<img src="{% if request.session.avatar_url %}
+					  {{ request.session.avatar_url }}
+					  {% else %}
+					  {{ DEFAULT_AVATAR_URL }}
+					  {% endif %}" width="{{ AVATAR_SIZE }}px" height="{{ AVATAR_SIZE }}px" class="img-circle">
+		</div>
+		<h1>
+			{% trans 'Welcome' %} {{ user.get_full_name|default:user.username }}!
+		</h1>
+	</div>
+
+	<ul id="instructions">
+		<li>
+			<p>
+				You can list the client account assigned to you or create new ones by using respectively the 'List accounts'
+				and 'Create account' in the top bar.
+			</p>
+		</li>
+		<li>
+			<p>
+				Please note that all the fields are required for the account creation, in addition you will have to provide
+				a valid <a href="https://en.wikipedia.org/wiki/International_Bank_Account_Number">IBAN</a> account.
+			</p>
+		</li>
+		<li>
+			<p>
+				If you don't have any you can use the generate iban action button for a fake one.
+			</p>
+		</li>
+	</ul>
+	{% endblock %}
 </div>
 {% endblock %}

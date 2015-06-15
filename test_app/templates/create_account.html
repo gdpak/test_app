@@ -1,0 +1,88 @@
+{% extends 'index.html' %}
+
+{% load i18n        %}
+{% load static      %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Create account" %}{% endblock %}
+
+{% block action %}
+<form class="form-horizontal" method="POST" enctype="multipart/form-data"
+	  action="{% block form_action %}{% url 'create_account' %}{% endblock %}">
+	{% csrf_token %}
+	<fieldset>
+		<legend>{% trans 'Account creation' %}</legend>
+		<div class="form-group">
+			<label class="col-md-4 control-label" for="iban">{% trans 'IBAN' %}</label>
+			<div class="col-md-4">
+				<input id="IBAN_account" name="IBAN_account" placeholder="iban"
+					   class="form-control input-md" required="" type="text"
+					   value="{{ form.IBAN_account.value |default_if_none:""}}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-4 control-label" for="first_name">{% trans 'First name' %}</label>
+			<div class="col-md-4">
+				<input id="first_name" name="first_name" placeholder="first name"
+					   class="form-control input-md" required="" type="text"
+					   value="{{ form.first_name.value |default_if_none:""}}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-4 control-label" for="last_name">{% trans 'Last name' %}</label>
+			<div class="col-md-4">
+				<input id="last_name" name="last_name" placeholder="last name"
+					   class="form-control input-md" required="" type="text"
+					   value="{{ form.last_name.value |default_if_none:""}}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-4 control-label" for="last_name">{% trans 'Picture' %}</label>
+			<div class="col-md-4">
+				<div class="fileinput fileinput-new" data-provides="fileinput">
+					<div class="fileinput-new thumbnail" style="width: 100px; height: 100px;">
+						<img src="{% if form.picture.value %}
+								  {% get_media_prefix %}{{form.picture.value}}
+								  {% endif %}" alt="...">
+					</div>
+					<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 100px; max-height: 100px;"></div>
+					<div>
+						<span class="btn btn-default btn-file">
+							<span class="fileinput-new">{% trans "Select image" %}</span>
+							<span class="fileinput-exists">{% trans "Change" %}</span>
+							<input type="file" name="picture"
+								   value="{{ form.picture.value |default_if_none:""}}">
+						</span>
+						<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-4 control-label" for="submit"></label>
+			<div class="col-md-8">
+				<button id="submit" name="submit" class="btn btn-primary">
+					{% block form_button_label %}{% trans 'Save' %}{% endblock %}
+				</button>
+				<button id="generate_iban" name="generate_iban" class="btn btn-success">
+					{% trans 'Generate IBAN' %}
+				</button>
+			</div>
+		</div>
+	</fieldset>
+	{% if form.errors %}
+	{% for field, error in form.errors.items %}
+	<div class="alert alert-danger" role="alert">
+		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true">  {{ field }}</span>
+		{{ error }}
+	</div>
+	{% endfor %}
+{% endif %}
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'index.html' %}
+
+{% load i18n        %}
+{% load thumbnail   %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Accounts list" %}{% endblock %}
+
+{% block action %}
+{% if accounts %}
+<div style="background-color: white">
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>{% trans 'First name'   %}</th>
+				<th>{% trans 'Last name'    %}</th>
+				<th>{% trans 'IBAN account' %}</th>
+				<th>{% trans 'Picture'      %}</th>
+				<th>{% trans 'Delete'       %}</th>
+				<th>{% trans 'Update'       %}</th>
+			<tr>
+		</thead>
+		<tbody>
+			{% for account in accounts %}
+			<tr>
+				<td>{{ account.first_name   }}</td>
+				<td>{{ account.last_name    }}</td>
+				<td>{{ account.IBAN_account }}</td>
+				<td>
+					{% if account.picture %}
+					<a href="{{ account.picture.url }}">
+						<img src="{% thumbnail account.picture 100x100 crop %}">
+					</a>
+					{% else %}
+					<a href="{{ DEFAULT_AVATAR_URL }}">
+						<img src="{{ DEFAULT_AVATAR_URL }}" width="100px" heigth="100px">
+					</a>
+					{% endif %}
+				</td>
+				<td>
+					<a href="{% url 'delete_account' account.id %}">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</a>
+				</td>
+				<td>
+					<a href="{% url 'update_account' account.id %}">
+						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+					</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% else %}
+<p>
+	{% blocktrans %}
+	It seems that you don't have any account at the moment, create them using the 'Create accout' button.
+	{% endblocktrans %}
+</p>
+{% endif %}
+
+<nav>
+	<ul class="pagination">
+		<li {% if not accounts.has_previous %}class="disabled"{% endif %}>
+			<a href="{% if accounts.has_previous %}?page={{ accounts.previous_page_number }}{% else %}#{% endif %}"
+			   aria-label="{%trans 'Previous' %}">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+
+		{% for page_number in pages_list %}
+		<li {% if page_number = accounts.number %}class="active"{% endif %}>
+			<a href="?page={{ page_number }}">{{ page_number }}</a>
+		</li>
+		{% endfor %}
+
+		<li {% if not accounts.has_next %}class="disabled"{% endif %}>
+			<a href="{% if accounts.has_next %}?page={{ accounts.next_page_number }}{% else %}#{% endif %}"
+			   aria-label="{% trans 'Next' %}">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+	</ul>
+</nav>
+
+<div class="pagination">
+	<span class="step-links">
+		<span class="current">
+			Page {{ accounts.number }} of {{ accounts.paginator.num_pages }}.
+		</span>
+	</span>
+</div>
+{% endblock %}

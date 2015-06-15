@@ -8,6 +8,9 @@ from django.contrib.auth            import logout
 from django.views.generic           import View
 from django.utils.decorators        import method_decorator
 from django.contrib.auth.forms      import AuthenticationForm
+from django.views.decorators.csrf   import csrf_protect
+from django.views.decorators.cache  import never_cache
+from django.views.decorators.debug  import sensitive_post_parameters
 from django.contrib.auth.decorators import login_required
 
 
@@ -35,6 +38,9 @@ class Login(View):
         form = self.form_class(request)
         return render(request, self.template_name, {'form': form})
 
+    @method_decorator(sensitive_post_parameters())
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
     def post(self, request, *args, **kwargs):
         form        = self.form_class(request, data=request.POST)
         redirect_to = '/'

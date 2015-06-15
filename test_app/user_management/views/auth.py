@@ -16,8 +16,7 @@ from django.contrib.auth.decorators import login_required
 
 class Index(View):
     template_name = 'index.html'
-
-    @method_decorator(login_required(login_url='/login'))
+    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         return render(request, 'index.html')
 
@@ -35,19 +34,19 @@ class Login(View):
     template_name = 'login.html'
 
     def get(self, request, *args, **kwargs):
-        form = self.form_class(request)
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': self.form_class(request)})
 
     @method_decorator(sensitive_post_parameters())
     @method_decorator(csrf_protect)
     @method_decorator(never_cache)
     def post(self, request, *args, **kwargs):
         form        = self.form_class(request, data=request.POST)
-        redirect_to = '/'
+        next_hop    = request.POST.get('next')
+        redirect_to = next_hop if next_hop else resolve_url('index')
 
         if form.is_valid():
             if not is_safe_url(url=redirect_to, host=request.get_host()):
                 redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
             login(request, form.get_user())
-            return redirect('/')
+            return redirect(redirect_to)
         return render(request, self.template_name, {'form': form})

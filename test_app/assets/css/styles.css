@@ -5,3 +5,7 @@
 .modal-footer {
     border-top: 0px;
 }
+
+#instructions {
+    margin-top: 40px;
+}

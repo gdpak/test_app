@@ -6,4 +6,4 @@ from user_management.models import UserInformation
 class UserInformationForm(ModelForm):
     class Meta:
         model  = UserInformation
-        fields = ['first_name', 'last_name', 'IBAN_account']
+        fields = ['first_name', 'last_name', 'IBAN_account', 'picture']

@@ -29,7 +29,7 @@
 				<td>
 					{% if account.picture %}
 					<a href="{{ account.picture.url }}">
-						<img src="{% thumbnail account.picture 100x100 crop %}">
+						<img src="{{ account.picture.url }}" width="100px" higth="100px">
 					</a>
 					{% else %}
 					<a href="{{ DEFAULT_AVATAR_URL }}">

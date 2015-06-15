@@ -174,10 +174,10 @@ DEBUG_TOOLBAR_PANELS = [
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_COLLAPSED'       : True,
     'RENDER_PANELS'        : True,
+    'DISABLE_PANELS'       : set(['debug_toolbar.panels.redirects.RedirectsPanel']),
+    'SHOW_COLLAPSED'       : True,
     'ENABLE_STACKTRACES'   : True,
     'SHOW_TEMPLATE_CONTEXT': True,
     'SHOW_TOOLBAR_CALLBACK': lambda _: True,
-    'DISABLE_PANELS'       : set(['debug_toolbar.panels.redirects.RedirectsPanel']),
 }

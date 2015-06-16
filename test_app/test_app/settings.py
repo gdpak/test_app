@@ -87,7 +87,7 @@ TEMPLATES = [{
 
 DATABASES = {
     'default': {
-        'NAME'    : 'test',
+        'NAME'    : APPLICATION_NAME,
         'PORT'    : '5432',
         'USER'    : 'postgres',
         'HOST'    : '127.0.0.1',

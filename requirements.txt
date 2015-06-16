@@ -37,3 +37,4 @@ Unidecode==0.4.17
 virtualenv==13.0.3
 virtualenv-clone==0.2.5
 virtualenvwrapper==4.6.0
+watchdog==0.8.3

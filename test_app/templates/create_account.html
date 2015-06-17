@@ -65,7 +65,7 @@
 				<button id="submit" name="submit" class="btn btn-primary">
 					{% block form_button_label %}{% trans 'Save' %}{% endblock %}
 				</button>
-				<button id="generate_iban" name="generate_iban" class="btn btn-success">
+				<button id="generate_iban" name="generate_iban" class="btn btn-success" data-toggle="modal" data-target="#generator_id">
 					{% trans 'Generate IBAN' %}
 				</button>
 			</div>
@@ -79,8 +79,8 @@
 	</div>
 	{% endfor %}
 {% endif %}
-
-{% include 'iban_generator_modal.html' %}
+{% trans "IBAN generator" as modal_title %}
+{% include "iban_generator_modal.html" with generator_modal_id="generator_id" generator_modal_title=modal_title %}
 </form>
 
 {% endblock %}

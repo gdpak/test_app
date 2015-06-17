@@ -1,6 +1,5 @@
 #!/bin/bash
 
-NAME="test_app"
 USER=nginx
 GROUP=nginx
 LOG_LEVEL=debug
@@ -18,7 +17,6 @@ SOCKFILE=$PROJECTDIR/run/gunicorn.sock
 ERRORLOG=$PROJECTDIR/logs/gunicorn-error.log
 ACCESSLOG=$PROJECTDIR/logs/gunicorn-access.log
 
-echo "Starting $NAME"
 cd $DJANGODIR
 source $PROJECTDIR/virtualenv/bin/activate
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
@@ -30,7 +28,6 @@ test -d $RUNDIR || mkdir -p $RUNDIR
 exec gunicorn ${DJANGO_WSGI_MODULE}:application \
   --pid            $PIDFILE       \
   --bind           unix:$SOCKFILE \
-  --name           $NAME          \
   --user           $USER          \
   --group          $GROUP         \
   --workers        $NUM_WORKERS   \

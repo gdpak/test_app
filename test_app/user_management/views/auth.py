@@ -11,14 +11,6 @@ from django.contrib.auth.forms      import AuthenticationForm
 from django.views.decorators.csrf   import csrf_protect
 from django.views.decorators.cache  import never_cache
 from django.views.decorators.debug  import sensitive_post_parameters
-from django.contrib.auth.decorators import login_required
-
-
-class Index(View):
-    template_name = 'index.html'
-    @method_decorator(login_required)
-    def get(self, request, *args, **kwargs):
-        return render(request, 'index.html')
 
 
 class Logout(View):

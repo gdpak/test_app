@@ -11,7 +11,7 @@ class UserInformation(models.Model):
     first_name   = models.CharField (_('first name'  ), max_length=20                                     )
     IBAN_account = IBANField        (_('IBAN account'), include_countries=IBAN_SEPA_COUNTRIES, unique=True)
 
-    account_manager = models.ForeignKey(verbose_name=_('account manager'), to=User             )
+    account_manager = models.ForeignKey(verbose_name=_('account manager'), to=User)
 
     class Meta:
         verbose_name        = _('User information' )

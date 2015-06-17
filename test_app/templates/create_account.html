@@ -7,6 +7,8 @@
 {% block title %}{% trans "Create account" %}{% endblock %}
 
 {% block action %}
+{% trans "IBAN generator" as modal_title %}
+{% include "iban_generator_modal.html" with generator_modal_id="generator_id" generator_modal_title=modal_title %}
 <form class="form-horizontal" method="POST" enctype="multipart/form-data"
 	  action="{% block form_action %}{% url 'create_account' %}{% endblock %}">
 	{% csrf_token %}
@@ -79,8 +81,6 @@
 	</div>
 	{% endfor %}
 {% endif %}
-{% trans "IBAN generator" as modal_title %}
-{% include "iban_generator_modal.html" with generator_modal_id="generator_id" generator_modal_title=modal_title %}
 </form>
 
 {% endblock %}

@@ -9,3 +9,7 @@
 #instructions {
     margin-top: 40px;
 }
+
+.jumbotron form {
+    font-size: 14px;
+}

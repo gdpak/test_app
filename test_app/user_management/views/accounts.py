@@ -12,8 +12,9 @@ from django.core.paginator          import PageNotAnInteger
 from django.utils.decorators        import method_decorator
 from django.contrib.auth.decorators import login_required
 
-from user_management.forms  import UserInformationForm
-from user_management.models import UserInformation
+from user_management.forms              import UserInformationForm
+from user_management.models             import UserInformation
+from user_management.iban_specification import IBAN_SPCIFICATION_CONFIG
 
 
 class ListAccounts(View):
@@ -37,12 +38,16 @@ class ListAccounts(View):
 
 
 class CreateAccount(View):
-    form_class    = UserInformationForm
-    template_name = 'create_account.html'
+    form_class       = UserInformationForm
+    template_name    = 'create_account.html'
+    sorted_countries = sorted(IBAN_SPCIFICATION_CONFIG.items(), key=lambda x: x[1].country_name)
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {'form': self.form_class()})
+        return render(request, self.template_name, {
+            'form'     : self.form_class(),
+            'countries': self.sorted_countries
+        })
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
@@ -56,7 +61,40 @@ class CreateAccount(View):
             new_account.account_manager = request.user
             new_account.save()
             return redirect(resolve_url('list_accounts'))
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {
+            'form'     : form,
+            'countries': self.sorted_countries
+        })
+
+
+class UpdateAccount(View):
+    form_class       = UserInformationForm
+    template_name    = 'update_account.html'
+    sorted_countries = sorted(IBAN_SPCIFICATION_CONFIG.items(), key=lambda x: x[1].country_name)
+
+    @method_decorator(login_required)
+    def get(self, request, account_id, *args, **kwargs):
+        account = get_object_or_404(UserInformation, id=account_id)
+        form    = UserInformationForm(instance=account)
+        return render(request, self.template_name, {
+            'form'     : form,
+            'countries': self.sorted_countries
+        })
+
+    @method_decorator(login_required)
+    def post(self, request, account_id, *args, **kwargs):
+        data = {
+            key : value.strip() if isinstance(value, string_types) else value
+            for key, value in iteritems(request.POST)}
+        account = get_object_or_404(UserInformation, id=account_id)
+        form    = self.form_class(data, request.FILES, instance=account)
+        if form.is_valid():
+            form.save()
+            return redirect(resolve_url('list_accounts'))
+        return render(request, self.template_name, {
+            'form'     : form,
+            'countries': self.sorted_countries
+        })
 
 
 class DeleteAccount(View):
@@ -71,26 +109,3 @@ class DeleteAccount(View):
         account = get_object_or_404(UserInformation, id=account_id)
         account.delete()
         return redirect(resolve_url('list_accounts'))
-
-
-class UpdateAccount(View):
-    form_class    = UserInformationForm
-    template_name = 'update_account.html'
-
-    @method_decorator(login_required)
-    def get(self, request, account_id, *args, **kwargs):
-        account = get_object_or_404(UserInformation, id=account_id)
-        form    = UserInformationForm(instance=account)
-        return render(request, self.template_name, {'form': form})
-
-    @method_decorator(login_required)
-    def post(self, request, account_id, *args, **kwargs):
-        data = {
-            key : value.strip() if isinstance(value, string_types) else value
-            for key, value in iteritems(request.POST)}
-        account = get_object_or_404(UserInformation, id=account_id)
-        form    = self.form_class(data, request.FILES, instance=account)
-        if form.is_valid():
-            form.save()
-            return redirect(resolve_url('list_accounts'))
-        return render(request, self.template_name, {'form': form})

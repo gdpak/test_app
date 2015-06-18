@@ -1,23 +1,66 @@
 {% load i18n %}
 
-<div class="modal fade" id="{% block modal_id %}modal{%block modal_id %}">
+<div class="modal fade" id="{{ generator_modal_id}}">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-		<h4 class="modal-title">{% block modal_title %}{% endblock %}</h4>
+				<h4 class="modal-title">{{ generator_modal_title }}</h4>
 			</div>
 			<div class="modal-body">
-				{% block modal_body %}{% endblock %}
+				{% block modal_body %}
+				<form class="form-horizontal" method="POST" enctype="multipart/form-data">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="country">{% trans 'Country' %}</label>
+						<div class="col-sm-4">
+							<select class="form-control randomized_control" name="generator_country" id="generator_country">
+								{% for code, country in countries %}
+								<option value="{{ code }}"
+										bank_mask="{{ country.bank_field_mask }}"
+										account_mask="{{ country.account_field_mask }}">
+									{{ country.country_name }}
+								</option>
+								{% endfor %}
+							</select>
+						</div>
+						<label class="checkbox-inline">
+							<input type="checkbox" id="generator_random_country" value="random_country">
+							{% trans 'Random'%}
+						</label>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="generator_banck">{% trans 'Bank' %}</label>
+						<div class="col-sm-4">
+							<input class="form-control randomizable_input" name="generator_bank" id="generator_bank">
+						</div>
+						<label class="checkbox-inline">
+							<input type="checkbox" id="generator_random_bank" value="random_bank" class="random_option">
+							{% trans 'Random'%}
+						</label>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="generator_account">{% trans 'Account' %}</label>
+						<div class="col-sm-4">
+							<input class="form-control randomizable_input" name="generator_account" id="generator_account">
+						</div>
+						<label class="checkbox-inline">
+							<input type="checkbox" id="generator_random_account" value="random_account" class="random_option">
+							{% trans 'Random'%}
+						</label>
+					</div>
+				</form>
+				{% endblock %}
 			</div>
 			<div class="modal-footer">
 				{% block modal_footer %}
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					{% trans 'Ok' %}
 				</button>
-				<button type="button" class="btn btn-primary">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">
 					{% trans 'cancel' %}
 				</button>
 				{% endblock %}

@@ -15,14 +15,18 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="country">{% trans 'Country' %}</label>
 						<div class="col-sm-4">
-							<select class="form-control randomized_control" name="generator_country" id="generator_country" disabled>
-								{% for code, country in countries.items %}
-								<option value="{{ code }}">{{ country.country_name }} - {{ country.bank_specification.length }} -  {{ country.bank_specification.data_type }}</option>
+							<select class="form-control randomized_control" name="generator_country" id="generator_country">
+								{% for code, country in countries %}
+								<option value="{{ code }}"
+										bank_mask="{{ country.bank_field_mask }}"
+										account_mask="{{ country.account_field_mask }}">
+									{{ country.country_name }}
+								</option>
 								{% endfor %}
 							</select>
 						</div>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="generator_random_country" value="random_country" class="random_option" checked>
+							<input type="checkbox" id="generator_random_country" value="random_country">
 							{% trans 'Random'%}
 						</label>
 					</div>
@@ -30,10 +34,10 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="generator_banck">{% trans 'Bank' %}</label>
 						<div class="col-sm-4">
-							<input class="form-control randomized_control" name="generator_bank" id="generator_bank" disabled>
+							<input class="form-control randomizable_input" name="generator_bank" id="generator_bank">
 						</div>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="generator_random_bank" value="random_bank" class="random_option" checked>
+							<input type="checkbox" id="generator_random_bank" value="random_bank" class="random_option">
 							{% trans 'Random'%}
 						</label>
 					</div>
@@ -41,10 +45,10 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="generator_account">{% trans 'Account' %}</label>
 						<div class="col-sm-4">
-							<input class="form-control randomized_control" name="generator_account" id="generator_account" disabled>
+							<input class="form-control randomizable_input" name="generator_account" id="generator_account">
 						</div>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="generator_random_account" value="random_account" class="random_option" checked>
+							<input type="checkbox" id="generator_random_account" value="random_account" class="random_option">
 							{% trans 'Random'%}
 						</label>
 					</div>

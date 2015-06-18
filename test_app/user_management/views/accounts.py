@@ -38,14 +38,15 @@ class ListAccounts(View):
 
 
 class CreateAccount(View):
-    form_class     = UserInformationForm
-    template_name  = 'create_account.html'
+    form_class       = UserInformationForm
+    template_name    = 'create_account.html'
+    sorted_countries = sorted(IBAN_SPCIFICATION_CONFIG.items(), key=lambda x: x[1].country_name)
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name, {
             'form'     : self.form_class(),
-            'countries': IBAN_SPCIFICATION_CONFIG
+            'countries': self.sorted_countries
         })
 
     @method_decorator(login_required)
@@ -62,13 +63,14 @@ class CreateAccount(View):
             return redirect(resolve_url('list_accounts'))
         return render(request, self.template_name, {
             'form'     : form,
-            'countries': self.countries_list
+            'countries': self.sorted_countries
         })
 
 
 class UpdateAccount(View):
-    form_class     = UserInformationForm
-    template_name  = 'update_account.html'
+    form_class       = UserInformationForm
+    template_name    = 'update_account.html'
+    sorted_countries = sorted(IBAN_SPCIFICATION_CONFIG.items(), key=lambda x: x[1].country_name)
 
     @method_decorator(login_required)
     def get(self, request, account_id, *args, **kwargs):
@@ -76,7 +78,7 @@ class UpdateAccount(View):
         form    = UserInformationForm(instance=account)
         return render(request, self.template_name, {
             'form'     : form,
-            'countries': IBAN_SPCIFICATION_CONFIG
+            'countries': self.sorted_countries
         })
 
     @method_decorator(login_required)
@@ -91,7 +93,7 @@ class UpdateAccount(View):
             return redirect(resolve_url('list_accounts'))
         return render(request, self.template_name, {
             'form'     : form,
-            'countries': self.countries_list
+            'countries': self.sorted_countries
         })
 
 

@@ -7,10 +7,49 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-		<h4 class="modal-title">{{ generator_modal_title }}</h4>
+				<h4 class="modal-title">{{ generator_modal_title }}</h4>
 			</div>
 			<div class="modal-body">
-				{% block modal_body %}{% endblock %}
+				{% block modal_body %}
+				<form class="form-horizontal" method="POST" enctype="multipart/form-data">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="country">{% trans 'Country' %}</label>
+						<div class="col-sm-4">
+							<select class="form-control randomized_control" name="generator_country" id="generator_country" disabled>
+								{% for code, country in countries.items %}
+								<option value="{{ code }}">{{ country.country_name }} - {{ country.bank_specification.length }} -  {{ country.bank_specification.data_type }}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<label class="checkbox-inline">
+							<input type="checkbox" id="generator_random_country" value="random_country" class="random_option" checked>
+							{% trans 'Random'%}
+						</label>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="generator_banck">{% trans 'Bank' %}</label>
+						<div class="col-sm-4">
+							<input class="form-control randomized_control" name="generator_bank" id="generator_bank" disabled>
+						</div>
+						<label class="checkbox-inline">
+							<input type="checkbox" id="generator_random_bank" value="random_bank" class="random_option" checked>
+							{% trans 'Random'%}
+						</label>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="generator_account">{% trans 'Account' %}</label>
+						<div class="col-sm-4">
+							<input class="form-control randomized_control" name="generator_account" id="generator_account" disabled>
+						</div>
+						<label class="checkbox-inline">
+							<input type="checkbox" id="generator_random_account" value="random_account" class="random_option" checked>
+							{% trans 'Random'%}
+						</label>
+					</div>
+				</form>
+				{% endblock %}
 			</div>
 			<div class="modal-footer">
 				{% block modal_footer %}

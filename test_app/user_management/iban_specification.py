@@ -4,6 +4,12 @@ IBANPartSpecification = namedtuple('IBANPartSpecification', ["length", "data_typ
 
 
 class IBANSpecification(object):
+    MASK_DATATYPE_MAP = {
+        'a':'a',
+        'n':'9',
+        'c':'w',
+    }
+
     def __init__(self, country_name, country_code, bank_format, account_format):
         self.country_name          = country_name
         self.country_code          = country_code
@@ -15,11 +21,24 @@ class IBANSpecification(object):
         return sum((_.length for _ in self.bank_specification))
 
     @property
-    def accoutn_field_length(self):
+    def account_field_length(self):
         return sum((_.length for _ in self.account_specification))
 
+    def field_mask(self, specification):
+        return " ".join([
+            self.MASK_DATATYPE_MAP[part.data_type] * part.length
+            for part in specification if part.length > 0])
+
     @property
-    def total_lng(self):
+    def bank_field_mask(self):
+        return self.field_mask(self.bank_specification)
+
+    @property
+    def account_field_mask(self):
+        return self.field_mask(self.account_specification)
+
+    @property
+    def total_length(self):
         return 4 + self.bank_field_length + self.accoutn_field_length
 
     def decode_format(self, data_format):

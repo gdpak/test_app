@@ -7,15 +7,7 @@
 {% block title %}{% trans "Create account" %}{% endblock %}
 
 {% block js_footer %}
-<script>
-    $('.random_option').click(function () {
-  	if ($(this).is(':checked')) {
-			$(this).parentsUntil('form').find('.randomized_control').prop('disabled', true);
-	    } else {
-			$(this).parentsUntil('form').find('.randomized_control').prop('disabled', false);
-	    }
-    });
-</script>
+<script src="{% static 'js/iban_generator.js' %}"></script>
 {% endblock %}
 
 {% block action %}

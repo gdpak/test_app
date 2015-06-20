@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 (
-    flock -n 200
+    flock -n 200 || exit 1
     gunicorn_status=$(supervisorctl status  gunicorn_workers | awk '{print($2)}')
 
     if [ $gunicorn_status == 'RUNNING' ]; then

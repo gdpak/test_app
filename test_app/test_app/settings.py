@@ -9,7 +9,7 @@ from os.path                  import dirname
 from django.utils.translation import ugettext_lazy as _
 
 
-extra_configuration = loads(b64decode(environ['XANADOU_EXTRA_INFO']))
+extra_configuration = loads(b64decode(environ['XANADOU_EXTRA_INFO']).decode('utf-8'))
 
 DEBUG          = extra_configuration['debug']
 TEMPLATE_DEBUG = DEBUG

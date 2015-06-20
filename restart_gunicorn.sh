@@ -9,4 +9,7 @@
     elif [ $gunicorn_status != 'RESTARTING']; then
         supervisorctl start gunicorn_workers
     fi
+
+    #Sometime the watchemedo generate zombies, cleaning it up
+    kill -HUP $(ps -A -ostat,ppid |  awk '/[zZ]/{print $2}')
 ) 200>.gunicorn_reload.lock

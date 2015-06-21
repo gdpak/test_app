@@ -32,8 +32,25 @@ $(function(){
     update_input_masks = function() {
         selected = $("#generator_country :selected");
 
-        $("#generator_bank"   ).inputmask({mask: selected.attr("bank_mask"   )});
-        $("#generator_account").inputmask({mask: selected.attr("account_mask")});
+        $("#generator_bank"   ).val('');
+        $("#generator_account").val('');
+
+        bank_input    = $("#generator_bank"   ).data('bs.inputmask');
+        account_input = $("#generator_account").data('bs.inputmask');
+
+        if(bank_input) {
+            bank_input.mask = selected.attr("bank_mask");
+            bank_input.init();
+        } else {
+            $("#generator_bank").inputmask({mask: selected.attr("bank_mask")})
+        }
+
+        if(account_input) {
+            account_input.mask = selected.attr("account_mask");
+            account_input.init();
+        } else {
+            $("#generator_account").inputmask({mask: selected.attr("account_mask")})
+        }
     }
 
     $('#generator_random_country').click(function(){

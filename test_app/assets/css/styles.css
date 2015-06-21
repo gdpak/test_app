@@ -13,3 +13,7 @@
 .jumbotron form {
     font-size: 14px;
 }
+
+.btn-block {
+    margin-bottom: 10px;
+}

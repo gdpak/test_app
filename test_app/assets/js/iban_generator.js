@@ -1,8 +1,14 @@
 $(function(){
-    $('.random_option'           ).prop('disabled', true).prop('checked' , true);
-    $('#generator_country'       ).prop('disabled', true);
-    $('.randomizable_input'      ).prop('disabled', true);
-    $('#generator_random_country').prop('checked' , true);
+
+    $('#generator_id').on('shown.bs.modal', function () {
+        $("#generator_bank"   ).val('');
+        $("#generator_account").val('');
+
+        $('.random_option'           ).prop('disabled', true).prop('checked' , true);
+        $('#generator_country'       ).prop('disabled', true);
+        $('.randomizable_input'      ).prop('disabled', true);
+        $('#generator_random_country').prop('checked' , true);
+    });
 
     $.ajaxSetup({
         beforeSend: function(xhr, settings) {

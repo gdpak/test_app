@@ -56,3 +56,5 @@ docs/_build/
 # PyBuilder
 target/
 virtualenv/
+/.collect_static.lock
+/.gunicorn_reload.lock

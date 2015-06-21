@@ -52,18 +52,21 @@
 							{% trans 'Random'%}
 						</label>
 					</div>
+
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-6">
+							{% block modal_footer %}
+							<button id="generator_submit" type="button" class="btn btn-block btn-primary">
+								{% trans 'Generate' %}
+							</button>
+							<button type="button" class="btn btn-block btn-danger" data-dismiss="modal">
+								{% trans 'cancel' %}
+							</button>
+							{% endblock %}
+						</div>
+					</div>
 					{% csrf_token %}
 				</form>
-				{% endblock %}
-			</div>
-			<div class="modal-footer">
-				{% block modal_footer %}
-				<button id="generator_submit" type="button" class="btn btn-block btn-primary">
-					{% trans 'Generate' %}
-				</button>
-				<button type="button" class="btn btn-block btn-danger" data-dismiss="modal">
-					{% trans 'cancel' %}
-				</button>
 				{% endblock %}
 			</div>
 		</div>

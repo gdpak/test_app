@@ -16,13 +16,13 @@
 <script src="{% static 'js/iban_generator.js' %}"></script>
 {% endblock %}
 
+{% block modals %}
+	{% trans "IBAN generator" as modal_title %}
+	{% include "iban_generator_modal.html" with generator_modal_id="generator_id" generator_modal_title=modal_title %}
+{% endblock %}
+
+
 {% block action %}
-
-    {% block generator_modal %}
-        {% trans "IBAN generator" as modal_title %}
-        {% include "iban_generator_modal.html" with generator_modal_id="generator_id" generator_modal_title=modal_title %}
-    {% endblock %}
-
 <form class="form-horizontal" method="POST" enctype="multipart/form-data"
 	  action="{% block form_action %}{% url 'create_account' %}{% endblock %}">
 	{% csrf_token %}

@@ -12,4 +12,4 @@
 
     #Sometime the watchemedo generate zombies, cleaning it up
     kill -HUP $(ps -A -ostat,ppid |  awk '/[zZ]/{print $2}')
-) 200>.gunicorn_reload.lock
+) 200>$XANADOU_PATH/.gunicorn_reload.lock

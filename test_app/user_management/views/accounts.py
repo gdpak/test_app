@@ -17,7 +17,7 @@ from user_management.models             import UserInformation
 from user_management.iban_specification import IBAN_SPCIFICATION_CONFIG
 
 
-class ListAccounts(View):
+class ListAccountsView(View):
     template_name = 'list_accounts.html'
 
     @method_decorator(login_required)
@@ -37,7 +37,7 @@ class ListAccounts(View):
             'pages_list': range(1, paginator.num_pages + 1) or [1]})
 
 
-class CreateAccount(View):
+class CreateAccountView(View):
     form_class       = UserInformationForm
     template_name    = 'create_account.html'
     sorted_countries = sorted(IBAN_SPCIFICATION_CONFIG.items(), key=lambda x: x[1].country_name)
@@ -67,7 +67,7 @@ class CreateAccount(View):
         })
 
 
-class UpdateAccount(View):
+class UpdateAccountView(View):
     form_class       = UserInformationForm
     template_name    = 'update_account.html'
     sorted_countries = sorted(IBAN_SPCIFICATION_CONFIG.items(), key=lambda x: x[1].country_name)
@@ -97,7 +97,7 @@ class UpdateAccount(View):
         })
 
 
-class DeleteAccount(View):
+class DeleteAccountView(View):
     @method_decorator(login_required)
     def get(self, request, account_id, *args, **kwargs):
         account = get_object_or_404(UserInformation, id=account_id)

@@ -11,7 +11,7 @@
 			</div>
 			<div class="modal-body">
 				{% block modal_body %}
-				<form class="form-horizontal" method="POST" enctype="multipart/form-data">
+				<form class="form-horizontal" id="generator_form">
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="country">{% trans 'Country' %}</label>
 						<div class="col-sm-4">
@@ -26,7 +26,7 @@
 							</select>
 						</div>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="generator_random_country" value="random_country">
+							<input type="checkbox" id="generator_random_country" name="generator_random_country">
 							{% trans 'Random'%}
 						</label>
 					</div>
@@ -37,7 +37,7 @@
 							<input class="form-control randomizable_input" name="generator_bank" id="generator_bank">
 						</div>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="generator_random_bank" value="random_bank" class="random_option">
+							<input type="checkbox" id="generator_random_bank" name="generator_random_bank" class="random_option">
 							{% trans 'Random'%}
 						</label>
 					</div>
@@ -48,19 +48,20 @@
 							<input class="form-control randomizable_input" name="generator_account" id="generator_account">
 						</div>
 						<label class="checkbox-inline">
-							<input type="checkbox" id="generator_random_account" value="random_account" class="random_option">
+							<input type="checkbox" id="generator_random_account" name="generator_random_account" class="random_option">
 							{% trans 'Random'%}
 						</label>
 					</div>
+					{% csrf_token %}
 				</form>
 				{% endblock %}
 			</div>
 			<div class="modal-footer">
 				{% block modal_footer %}
-				<button type="button" class="btn btn-default" data-dismiss="modal">
-					{% trans 'Ok' %}
+				<button id="generator_submit" type="button" class="btn btn-block btn-primary">
+					{% trans 'Generate' %}
 				</button>
-				<button type="button" class="btn btn-primary" data-dismiss="modal">
+				<button type="button" class="btn btn-block btn-danger" data-dismiss="modal">
 					{% trans 'cancel' %}
 				</button>
 				{% endblock %}

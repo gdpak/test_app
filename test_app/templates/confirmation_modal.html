@@ -1,0 +1,39 @@
+{% load i18n %}
+
+<div class="modal fade" id="{{ confirmation_modal_id }}">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">{{ confirmation_modal_title }}</h4>
+			</div>
+			<div class="modal-body">
+				{% block modal_body %}
+				<form class="form-horizontal" id="generator_form">
+					<div class="form-group">
+						<div class="col-sm-12">
+							<p><h4>{{ confirmation_message }}</h4></p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-8">
+							{% block modal_footer %}
+							<button id="confirmation_submit" type="button" class="btn btn-block btn-primary">
+								{% trans 'Ok' %}
+							</button>
+							<button type="button" class="btn btn-block btn-danger" data-dismiss="modal">
+								{% trans 'Cancel' %}
+							</button>
+							{% endblock %}
+						</div>
+					</div>
+					{% csrf_token %}
+				</form>
+				{% endblock %}
+			</div>
+		</div>
+	</div>
+</div>

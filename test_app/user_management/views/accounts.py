@@ -1,6 +1,7 @@
 from six                            import string_types
 from six                            import iteritems
 from django.conf                    import settings
+from django.http                    import HttpResponseBadRequest
 from django.shortcuts               import resolve_url
 from django.shortcuts               import render
 from django.shortcuts               import redirect
@@ -106,6 +107,16 @@ class DeleteAccountView(View):
 
     @method_decorator(login_required)
     def post(self, request, account_id, *args, **kwargs):
-        account = get_object_or_404(UserInformation, id=account_id)
-        account.delete()
-        return redirect(resolve_url('list_accounts'))
+        return self.get(request, account_id)
+
+
+class DeleteAccountsView(View):
+    @method_decorator(login_required)
+    def post(self, request, accounts, *args, **kwargs):
+        try:
+            UserInformation.objects.filter(
+                id__in=accounts.split('/')
+            ).delete()
+            return redirect(resolve_url('list_accounts'))
+        except Exception as e:
+            return HttpResponseBadRequest(str(e))

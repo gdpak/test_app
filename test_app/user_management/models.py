@@ -1,7 +1,8 @@
-from django.db                          import models
-from django.utils.translation           import ugettext_lazy as _
-from django.contrib.auth.models         import User
-from localflavor.generic.models         import IBANField
+from django.db                  import models
+from easy_thumbnails.files      import get_thumbnailer
+from django.utils.translation   import ugettext_lazy as _
+from django.contrib.auth.models import User
+from localflavor.generic.models import IBANField
 
 
 class UserInformation(models.Model):
@@ -20,3 +21,10 @@ class UserInformation(models.Model):
 
     def __str__(self):
         return u'{} {}'.format(self.first_name, self.last_name)
+
+    def admin_picture_thumbnail(self):
+        return u'<img src="{}"/>'.format(
+            get_thumbnailer(self.picture)['thumb'].url)
+
+    admin_picture_thumbnail.allow_tags        = True
+    admin_picture_thumbnail.short_description = _('Picture')

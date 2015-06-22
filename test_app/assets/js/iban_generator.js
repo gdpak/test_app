@@ -82,8 +82,6 @@ $(function(){
             success: function(data){
                 console.log(data);
                 $('#IBAN_account').val(data.generated_iban);
-                $('#generator_id').modal('hide')
-            }
-        });
-    });
+                $('#generator_id').modal('hide');
+    }})});
 });

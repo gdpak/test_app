@@ -23,7 +23,7 @@
 
 {% block action %}
 {% if accounts %}
-<form id="list_accounts_form" style="background-color: white">
+<form id="list_accounts_form" method="POST">
 	<table class="table table-bordered table-hover">
 		<thead>
 			<tr>
@@ -48,7 +48,7 @@
 				<td>
 					{% if account.picture %}
 					<a href="{{ account.picture.url }}">
-						<img src="{{ account.picture.url }}" width="100px" higth="100px">
+						<img src="{{ account.picture.url }}">
 					</a>
 					{% else %}
 					<a href="{{ DEFAULT_AVATAR_URL }}">
@@ -72,11 +72,11 @@
 	</table>
 	{% csrf_token %}
 	<div class="col-sm-6">
-		<button id="delete_button" type="button" class="btn btn-primary col-sm-4">
-			{% trans 'Delete' %}
+		<button id="delete_button" type="button" class="btn btn-primary col-sm-5">
+			{% trans 'Delete selected' %}
 		</button>
-		<button id="delete_inplace_button" type="button" class="btn btn-info col-sm-offset-1 col-sm-4">
-			{% trans 'Delete in place' %}
+		<button id="delete_inplace_button" type="button" class="btn btn-info col-sm-offset-1 col-sm-5">
+			{% trans 'Delete selected in place' %}
 		</button>
 	</div>
 </form>

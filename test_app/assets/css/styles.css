@@ -33,3 +33,12 @@
 #list_accounts_form td {
     vertical-align: middle;
 }
+
+#list_accounts_form {
+    background-color: white;
+}
+
+#list_accounts_form img{
+    width : 100px;
+    height: 100px;
+}

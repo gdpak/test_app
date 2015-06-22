@@ -7,6 +7,10 @@
 {% block title %}{% trans "Accounts list" %}{% endblock %}
 
 {% block js_footer %}
+<script>
+	var delete_accounts_url          = "{% url 'delete_accounts'     %}";
+	var delete_accounts_in_place_url = "{% url 'delete_accounts_api' %}";
+</script>
 <script src="{% static 'js/list_accounts.js' %}"></script>
 {% endblock %}
 

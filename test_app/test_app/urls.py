@@ -12,7 +12,9 @@ from user_management.views.accounts import ListAccountsView
 from user_management.views.accounts import CreateAccountView
 from user_management.views.accounts import DeleteAccountView
 from user_management.views.accounts import UpdateAccountView
-from user_management.views.rest_api import IBANGeneratorView
+from user_management.views.accounts import DeleteAccountsView
+from user_management.views.rest_api import IBANGeneratorApiView
+from user_management.views.rest_api import DeleteAccountsApiView
 
 
 urlpatterns = [
@@ -24,12 +26,14 @@ urlpatterns = [
     url(r'^login/$' , LoginView .as_view(), name='login' ),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
 
-    url(r'^list_accounts/$'                        , ListAccountsView .as_view(), name='list_accounts' ),
-    url(r'^create_account/$'                       , CreateAccountView.as_view(), name='create_account'),
-    url(r'^update_account/(?P<account_id>[0-9]+)/$', UpdateAccountView.as_view(), name='update_account'),
-    url(r'^delete_account/(?P<account_id>[0-9]+)/$', DeleteAccountView.as_view(), name='delete_account'),
+    url(r'^list_accounts/$'                        , ListAccountsView  .as_view(), name='list_accounts'  ),
+    url(r'^create_account/$'                       , CreateAccountView .as_view(), name='create_account' ),
+    url(r'^update_account/(?P<account_id>[0-9]+)/$', UpdateAccountView .as_view(), name='update_account' ),
+    url(r'^delete_account/(?P<account_id>[0-9]+)/$', DeleteAccountView .as_view(), name='delete_account' ),
+    url(r'^delete_accounts/((?P<accounts>.+)/)*$'  , DeleteAccountsView.as_view(), name='delete_accounts'),
 
-    url(r'^api/generate_iban/$', IBANGeneratorView.as_view(), name='generate_iban')
+    url(r'^api/generate_iban/$'  , IBANGeneratorApiView .as_view(), name='generate_iban_api'  ),
+    url(r'^api/delete_accounts/$', DeleteAccountsApiView.as_view(), name='delete_accounts_api'),
 ]
 
 

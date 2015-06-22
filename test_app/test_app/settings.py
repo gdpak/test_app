@@ -205,6 +205,7 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TEMPLATE_CONTEXT': True,
     'SHOW_TOOLBAR_CALLBACK': lambda _: DEBUG,
     'DISABLE_PANELS'       : set(['debug_toolbar.panels.redirects.RedirectsPanel']),
+    'JQUERY_URL'           : STATIC_URL + 'js/jquery.min.js',
 }
 
 CACHES = {

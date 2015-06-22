@@ -47,12 +47,12 @@
 				<td>{{ account.IBAN_account }}</td>
 				<td>
 					{% if account.picture %}
-					<a href="{{ account.picture.url }}">
-						<img src="{{ account.picture.url }}">
+					<a href="{{ account.picture.url }}" target="_blank">
+						<img src="{{ account.picture|thumbnail_url:'avatar' }}">
 					</a>
 					{% else %}
-					<a href="{{ DEFAULT_AVATAR_URL }}">
-						<img src="{{ DEFAULT_AVATAR_URL }}" width="100px" heigth="100px">
+					<a href="{{ DEFAULT_AVATAR_URL }}" target="_blank">
+						<img src="{{ DEFAULT_AVATAR_URL|thumbnail_url:'avatar' }}">
 					</a>
 					{% endif %}
 				</td>

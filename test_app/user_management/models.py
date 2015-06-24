@@ -7,10 +7,10 @@ from django_iban.fields import IBANField
 
 
 class UserInformation(models.Model):
-    picture      = models.ImageField(_('Picture'     ), upload_to="%Y/%m/%d")
-    last_name    = models.CharField (_('last name'   ), max_length=20       )
-    first_name   = models.CharField (_('first name'  ), max_length=20       )
-    IBAN_account = IBANField        (_('IBAN account'), unique=True         )
+    picture      = models.ImageField(_('Picture'     ), upload_to="%Y/%m/%d"                         )
+    last_name    = models.CharField (_('last name'   ), max_length=20                                )
+    first_name   = models.CharField (_('first name'  ), max_length=20                                )
+    IBAN_account = IBANField        (_('IBAN account'), unique=True, enforce_database_constraint=True)
 
     account_manager = models.ForeignKey(verbose_name=_('account manager'), to=User)
 

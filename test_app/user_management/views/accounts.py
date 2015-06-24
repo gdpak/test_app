@@ -13,9 +13,9 @@ from django.core.paginator          import PageNotAnInteger
 from django.utils.decorators        import method_decorator
 from django.contrib.auth.decorators import login_required
 
-from user_management.forms              import UserInformationForm
-from user_management.models             import UserInformation
-from user_management.iban_specification import IBAN_SPCIFICATION_CONFIG
+from user_management.forms     import UserInformationForm
+from user_management.models    import UserInformation
+from django_iban.specification import IBAN_SPECIFICATION_CONFIG
 
 
 class ListAccountsView(View):
@@ -41,7 +41,7 @@ class ListAccountsView(View):
 class CreateAccountView(View):
     form_class       = UserInformationForm
     template_name    = 'create_account.html'
-    sorted_countries = sorted(IBAN_SPCIFICATION_CONFIG.items(), key=lambda x: x[1].country_name)
+    sorted_countries = sorted(IBAN_SPECIFICATION_CONFIG.items(), key=lambda x: x[1].country_name)
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
@@ -71,7 +71,7 @@ class CreateAccountView(View):
 class UpdateAccountView(View):
     form_class       = UserInformationForm
     template_name    = 'update_account.html'
-    sorted_countries = sorted(IBAN_SPCIFICATION_CONFIG.items(), key=lambda x: x[1].country_name)
+    sorted_countries = sorted(IBAN_SPECIFICATION_CONFIG.items(), key=lambda x: x[1].country_name)
 
     @method_decorator(login_required)
     def get(self, request, account_id, *args, **kwargs):

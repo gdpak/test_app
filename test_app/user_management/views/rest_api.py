@@ -4,8 +4,8 @@ from rest_framework.response        import Response
 from django.utils.decorators        import method_decorator
 from django.contrib.auth.decorators import login_required
 
-from user_management.models         import UserInformation
-from user_management.iban_generator import IBANGenerator
+from django_iban.generator  import IBANGenerator
+from user_management.models import UserInformation
 
 
 class IBANGeneratorApiView(APIView):

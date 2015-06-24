@@ -6,4 +6,4 @@
 
     #Sometime the watchemedo generate zombies, cleaning it up
     kill -HUP $(ps -A -ostat,ppid |  awk '/[zZ]/{print $2}')
-) 300>.collect_static.lock
+) 300>$XANADOU_PATH/.collect_static.lock

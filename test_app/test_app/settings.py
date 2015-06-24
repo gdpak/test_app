@@ -33,6 +33,13 @@ THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.filters',
 )
 
+THUMBNAIL_ALIASES = {
+    '': {
+        'thumb'  : {'size': (50 ,  50), 'crop': False},
+        'avatar' : {'size': (100, 100), 'crop': False},
+        'preview': {'size': (150, 150), 'crop': False},
+}}
+
 
 def getpath(resource_path):
     return abspath(join(BASE_DIR, resource_path))
@@ -137,7 +144,7 @@ LOGGING = {
 
 SUIT_CONFIG = {
     'VERSION'                : "0.1",
-    'ADMIN_NAME'             : _(APPLICATION_NAME),
+    'ADMIN_NAME'             : _(APPLICATION_NAME.upper()),
     'SEARCH_URL'             : '/admin/user_management/userinformation/',
     'LIST_PER_PAGE'          : 30,
     'HEADER_DATE_FORMAT'     : 'l, j. F Y',
@@ -205,6 +212,7 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TEMPLATE_CONTEXT': True,
     'SHOW_TOOLBAR_CALLBACK': lambda _: DEBUG,
     'DISABLE_PANELS'       : set(['debug_toolbar.panels.redirects.RedirectsPanel']),
+    'JQUERY_URL'           : STATIC_URL + 'js/jquery.min.js',
 }
 
 CACHES = {

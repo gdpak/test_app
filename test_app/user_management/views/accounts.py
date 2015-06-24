@@ -1,6 +1,7 @@
 from six                            import string_types
 from six                            import iteritems
 from django.conf                    import settings
+from django.http                    import HttpResponseBadRequest
 from django.shortcuts               import resolve_url
 from django.shortcuts               import render
 from django.shortcuts               import redirect
@@ -17,7 +18,7 @@ from user_management.models             import UserInformation
 from user_management.iban_specification import IBAN_SPCIFICATION_CONFIG
 
 
-class ListAccounts(View):
+class ListAccountsView(View):
     template_name = 'list_accounts.html'
 
     @method_decorator(login_required)
@@ -37,7 +38,7 @@ class ListAccounts(View):
             'pages_list': range(1, paginator.num_pages + 1) or [1]})
 
 
-class CreateAccount(View):
+class CreateAccountView(View):
     form_class       = UserInformationForm
     template_name    = 'create_account.html'
     sorted_countries = sorted(IBAN_SPCIFICATION_CONFIG.items(), key=lambda x: x[1].country_name)
@@ -67,7 +68,7 @@ class CreateAccount(View):
         })
 
 
-class UpdateAccount(View):
+class UpdateAccountView(View):
     form_class       = UserInformationForm
     template_name    = 'update_account.html'
     sorted_countries = sorted(IBAN_SPCIFICATION_CONFIG.items(), key=lambda x: x[1].country_name)
@@ -97,7 +98,7 @@ class UpdateAccount(View):
         })
 
 
-class DeleteAccount(View):
+class DeleteAccountView(View):
     @method_decorator(login_required)
     def get(self, request, account_id, *args, **kwargs):
         account = get_object_or_404(UserInformation, id=account_id)
@@ -106,6 +107,16 @@ class DeleteAccount(View):
 
     @method_decorator(login_required)
     def post(self, request, account_id, *args, **kwargs):
-        account = get_object_or_404(UserInformation, id=account_id)
-        account.delete()
-        return redirect(resolve_url('list_accounts'))
+        return self.get(request, account_id)
+
+
+class DeleteAccountsView(View):
+    @method_decorator(login_required)
+    def post(self, request, accounts, *args, **kwargs):
+        try:
+            UserInformation.objects.filter(
+                id__in=accounts.split('/')
+            ).delete()
+            return redirect(resolve_url('list_accounts'))
+        except Exception as e:
+            return HttpResponseBadRequest(str(e))

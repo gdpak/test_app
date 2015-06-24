@@ -46,8 +46,7 @@ class IBANSpecification(object):
             IBANPartSpecification(
                 length    = int(part[:-1]) if part[-1] in ("n", "a") else int(part),
                 data_type = part[-1]       if part[-1] in ("n", "a") else "c")
-            for part in filter(bool, data_format.split())
-        ]
+            for part in filter(bool, data_format.split())]
 
 
 IBAN_SPCIFICATION_CONFIG = {

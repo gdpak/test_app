@@ -6,17 +6,22 @@
 
 {% block title %}{% trans "Create account" %}{% endblock %}
 
+{% block js_head %}
+<script>
+	var generator_url = "{% url 'generate_iban_api' %}";
+</script>
+{% endblock %}
+
 {% block js_footer %}
 <script src="{% static 'js/iban_generator.js' %}"></script>
 {% endblock %}
 
+{% block modals %}
+	{% trans "IBAN generator" as modal_title %}
+	{% include "iban_generator_modal.html" with generator_modal_id="generator_id" generator_modal_title=modal_title %}
+{% endblock %}
+
 {% block action %}
-
-    {% block generator_modal %}
-        {% trans "IBAN generator" as modal_title %}
-        {% include "iban_generator_modal.html" with generator_modal_id="generator_id" generator_modal_title=modal_title %}
-    {% endblock %}
-
 <form class="form-horizontal" method="POST" enctype="multipart/form-data"
 	  action="{% block form_action %}{% url 'create_account' %}{% endblock %}">
 	{% csrf_token %}
@@ -59,8 +64,8 @@
 					<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 100px; max-height: 100px;"></div>
 					<div>
 						<span class="btn btn-default btn-file">
-							<span class="fileinput-new">{% trans "Select image" %}</span>
-							<span class="fileinput-exists">{% trans "Change" %}</span>
+							<span class="fileinput-new"   >{% trans "Select image" %}</span>
+							<span class="fileinput-exists">{% trans "Change"       %}</span>
 							<input type="file" name="picture" value="{{ form.picture.value |default_if_none:""}}">
 						</span>
 						<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
@@ -70,13 +75,12 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-2 control-label" for="submit"></label>
-			<div class="col-sm-6">
-				<button id="submit" name="submit" class="col-sm-2 btn btn-primary">
+			<div class="col-sm-offset-2 col-sm-4">
+				<button id="submit" name="submit" class="btn btn-block btn-primary">
 					{% block form_button_label %}{% trans 'Save' %}{% endblock %}
 				</button>
 				<div class="col-sm-1"></div>
-				<button id="generate_iban" name="generate_iban" class="col-sm-2 btn btn-success" data-toggle="modal" data-target="#generator_id">
+				<button id="generate_iban" name="generate_iban" class="btn btn-block btn-success" data-toggle="modal" data-target="#generator_id">
 					{% trans 'Generate IBAN' %}
 				</button>
 			</div>

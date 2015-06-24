@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 
-dnf install -y gcc libpng-devel libtiff-devel libxml2-devel openjpeg2-devel postgresql-devel \
-    libyaml-devel
+dnf install -y gcc libxml2-devel postgresql-devel libyaml-devel python3-pillow-devel python-pillow-devel

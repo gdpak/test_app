@@ -13,7 +13,7 @@ from django.views.decorators.cache  import never_cache
 from django.views.decorators.debug  import sensitive_post_parameters
 
 
-class Logout(View):
+class LogoutView(View):
     template_name = 'logout.html'
 
     def get(self, request, *args, **kwargs):
@@ -21,7 +21,7 @@ class Logout(View):
         return render(request, self.template_name)
 
 
-class Login(View):
+class LoginView(View):
     form_class    = AuthenticationForm
     template_name = 'login.html'
 

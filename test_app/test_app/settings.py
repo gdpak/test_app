@@ -48,12 +48,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'gunicorn',
-    'localflavor',
     'debug_toolbar',
     'rest_framework',
     'easy_thumbnails',
     'social.apps.django_app.default',
 
+    'django_iban',
     'user_management',
 )
 
